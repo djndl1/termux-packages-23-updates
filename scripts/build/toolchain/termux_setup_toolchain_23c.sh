@@ -107,8 +107,8 @@ termux_setup_toolchain_23c() {
 		CARGO_TARGET_NAME="armv7-linux-androideabi"
 	fi
 	local env_host="${CARGO_TARGET_NAME//-/_}"
-	export CARGO_TARGET_${env_host@U}_LINKER="${CC}"
-	export CARGO_TARGET_${env_host@U}_RUSTFLAGS="-L${TERMUX__PREFIX__LIB_DIR} -C link-arg=-Wl,-rpath=${TERMUX__PREFIX__LIB_DIR} -C link-arg=-Wl,--enable-new-dtags"
+	#export CARGO_TARGET_${env_host@U}_LINKER="${CC}"
+	#export CARGO_TARGET_${env_host@U}_RUSTFLAGS="-L${TERMUX__PREFIX__LIB_DIR} -C link-arg=-Wl,-rpath=${TERMUX__PREFIX__LIB_DIR} -C link-arg=-Wl,--enable-new-dtags"
 	export CFLAGS_${env_host}="${CPPFLAGS} ${CFLAGS}"
 	export CC_x86_64_unknown_linux_gnu="gcc"
 	export CFLAGS_x86_64_unknown_linux_gnu="-O2"

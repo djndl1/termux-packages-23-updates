@@ -37,20 +37,15 @@ if [ "$(uname -o)" = "Android" ] || [ -e "/system/bin/app_process" ]; then
 		echo "On-device execution of this script as root is disabled."
 		exit 1
 	fi
-
 	# This variable tells all parts of build system that build
 	# is performed on device.
-	export TERMUX_ON_DEVICE_BUILD=true
-else
-	export TERMUX_ON_DEVICE_BUILD=false
 fi
+export TERMUX_ON_DEVICE_BUILD=true
 
 # Automatically enable offline set of sources and build tools.
 # Offline termux-packages bundle can be created by executing
 # script ./scripts/setup-offline-bundle.sh.
-if [ -f "${TERMUX_SCRIPTDIR}/build-tools/.installed" ]; then
-	export TERMUX_PACKAGES_OFFLINE=true
-fi
+export TERMUX_PACKAGES_OFFLINE=true
 
 # Lock file to prevent parallel running in the same environment.
 TERMUX_BUILD_LOCK_FILE="${TMPDIR}/.termux-build.lck"
@@ -262,7 +257,7 @@ source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_host_build.sh"
 
 # Setup a standalone Android NDK toolchain. Called from termux_step_setup_toolchain.
 # shellcheck source=scripts/build/toolchain/termux_setup_toolchain_27c.sh
-source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_27c.sh"
+#source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_27c.sh"
 
 # Setup a standalone Android NDK 23c toolchain. Called from termux_step_setup_toolchain.
 # shellcheck source=scripts/build/toolchain/termux_setup_toolchain_23c.sh
@@ -270,7 +265,7 @@ source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_23c.sh"
 
 # Setup a standalone Glibc GNU toolchain. Called from termux_step_setup_toolchain.
 # shellcheck source=scripts/build/toolchain/termux_setup_toolchain_gnu.sh
-source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_gnu.sh"
+#source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_gnu.sh"
 
 # Runs termux_step_setup_toolchain_${TERMUX_NDK_VERSION}. Not to be overridden by packages.
 # shellcheck source=scripts/build/termux_step_setup_toolchain.sh
@@ -405,7 +400,8 @@ source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_finish_build.sh"
 
 if [ "$TERMUX_ON_DEVICE_BUILD" = "true" ]; then
 	# Setup TERMUX_APP_PACKAGE_MANAGER
-	source "$TERMUX_PREFIX/bin/termux-setup-package-manager"
+	export TERMUX_APP_PACKAGE_MANAGER=apt
+
 
 	# For on device builds cross compiling is not supported.
 	# Target architecture must be same as for environment used currently.
@@ -705,7 +701,7 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++)); do
 		fi
 
 		if [ "$TERMUX_CONTINUE_BUILD" == "false" ]; then
-			termux_step_get_dependencies
+			#termux_step_get_dependencies
 			if [ "$TERMUX_PACKAGE_LIBRARY" = "glibc" ]; then
 				termux_step_setup_cgct_environment
 			fi

@@ -50,7 +50,7 @@ PACKAGES+=" zip"
 # Definition of a package manager
 export TERMUX_SCRIPTDIR=$(dirname "$(realpath "$0")")/../
 . $(dirname "$(realpath "$0")")/properties.sh
-source "$TERMUX_PREFIX/bin/termux-setup-package-manager" || true
+#source "$TERMUX_PREFIX/bin/termux-setup-package-manager" || true
 
 if [ "$TERMUX_APP_PACKAGE_MANAGER" = "apt" ]; then
 	apt update
