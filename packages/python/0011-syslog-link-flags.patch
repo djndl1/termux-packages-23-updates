@@ -1,0 +1,10 @@
+--- a/Makefile.pre.in.orig	2025-06-15 21:01:06.520907139 +0800
++++ b/Makefile.pre.in	2025-06-15 21:00:25.360907136 +0800
+@@ -220,6 +220,7 @@
+ # MODULE_EGG_STATE=yes  # yes, missing, disabled, n/a
+ # MODULE_EGG_CFLAGS=
+ # MODULE_EGG_LDFLAGS=
++MODULE_SYSLOG_LDFLAGS=-llog
+ @MODULE_BLOCK@
+ 
+ # Default zoneinfo.TZPATH. Added here to expose it in sysconfig.get_config_var

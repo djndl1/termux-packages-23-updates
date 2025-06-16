@@ -1,0 +1,15 @@
+--- src/include/compiler.h	2024-04-18 01:04:08.000000000 +0800
++++ src/include/compiler.h	2025-06-16 23:40:45.183000223 +0800
+@@ -247,12 +247,10 @@
+ size_t strnlen(const char *s, size_t maxlen);
+ #endif
+ 
+-#ifndef HAVE_MEMPCPY
+ static inline void *mempcpy(void *dst, const void *src, size_t n)
+ {
+     return (char *)memcpy(dst, src, n) + n;
+ }
+-#endif
+ 
+ #ifndef HAVE_MEMPSET
+ static inline void *mempset(void *dst, int c, size_t n)

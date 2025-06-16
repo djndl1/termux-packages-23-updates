@@ -18,7 +18,7 @@ TERMUX_PKG_REPLACES="python-dev"
 TERMUX_PKG_PROVIDES="python3"
 
 # https://github.com/termux/termux-packages/issues/15908
-TERMUX_PKG_MAKE_PROCESSES=1
+TERMUX_PKG_MAKE_PROCESSES=3
 
 _MAJOR_VERSION="${TERMUX_PKG_VERSION%.*}"
 
@@ -29,7 +29,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_file__dev_ptmx=yes ac_cv_file__dev_ptc=no
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_ftime=no"
 # Avoid trying to use AT_EACCESS which is not defined:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_faccessat=no"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --build=$TERMUX_BUILD_TUPLE --with-system-ffi --with-system-expat --without-ensurepip"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --build=aarch64-linux-android --host=aarch64-linux-android --with-system-ffi --with-system-expat --without-ensurepip"
 # Hard links does not work on Android 6:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_linkat=no"
 # Do not assume getaddrinfo is buggy when cross compiling:
@@ -48,6 +48,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_shm_open=yes"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_shm_unlink=yes"
 # Assume tzset() works
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_working_tzset=yes"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" py_cv_module_syslog=n"
 
 TERMUX_PKG_RM_AFTER_INSTALL="
 lib/python${_MAJOR_VERSION}/test
@@ -64,23 +65,23 @@ termux_step_pre_configure() {
 	# gcc for include paths when finding headers for determining
 	# if extension modules should be built (specifically, the
 	# zlib extension module is not built without this):
-	CPPFLAGS+=" -I$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/include"
-	LDFLAGS+=" -L$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib"
+	CPPFLAGS+=" -I$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/include "
+	LDFLAGS+=" -L$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib "
 	if [ $TERMUX_ARCH = x86_64 ]; then LDFLAGS+=64; fi
 
 	if [ "$TERMUX_ON_DEVICE_BUILD" = "true" ]; then
 		# Python's configure script fails with
 		#    Fatal: you must define __ANDROID_API__
 		# if __ANDROID_API__ is not defined.
-		CPPFLAGS+=" -D__ANDROID_API__=$(getprop ro.build.version.sdk)"
+		CPPFLAGS+=" -D__ANDROID_API__=$(getprop ro.build.version.sdk) "
 	else
 		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --with-build-python=python$_MAJOR_VERSION"
 	fi
 
 	# For multiprocessing libs
-	export LDFLAGS+=" -landroid-posix-semaphore"
+	export LDFLAGS+=" -landroid-shmem -I/system/lib -llog "
 
-	export LIBCRYPT_LIBS="-lcrypt"
+	export LIBCRYPT_LIBS="-lcrypt "
 }
 
 termux_step_post_make_install() {

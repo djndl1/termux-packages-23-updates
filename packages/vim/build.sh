@@ -29,7 +29,7 @@ ac_cv_small_wchar_t=no
 --with-tlib=ncursesw
 --enable-multibyte
 --with-compiledby=Termux
---enable-python3interp=dynamic
+--enable-python3interp=yes
 --with-python3-config-dir=$TERMUX_PYTHON_HOME/config-${TERMUX_PYTHON_VERSION}/
 vi_cv_path_python3_pfx=$TERMUX_PREFIX
 vi_cv_path_python3_include=${TERMUX_PREFIX}/include/python${TERMUX_PYTHON_VERSION}
@@ -39,10 +39,10 @@ vi_cv_var_python3_version=${TERMUX_PYTHON_VERSION}
 --enable-luainterp=dynamic
 --with-lua-prefix=$TERMUX_PREFIX
 --with-luajit
---enable-perlinterp=dynamic
+--enable-perlinterp=yes
 --with-xsubpp=$TERMUX_PREFIX/bin/xsubpp
---enable-rubyinterp=dynamic
---enable-tclinterp=dynamic
+--enable-rubyinterp=yes
+--enable-tclinterp=yes
 --enable-gui=no
 --without-x
 "
@@ -100,13 +100,15 @@ termux_step_pre_configure() {
 	patch="$TERMUX_PKG_BUILDER_DIR/configure-perl-ruby-tcl-cross-compiling.diff"
 	echo "Applying patch: $(basename "$patch")"
 	test -f "$patch" && sed \
-		-e "s%\@PERL_VERSION\@%${perl_version}%g" \
-		-e "s%\@RUBY_MAJOR_VERSION\@%${ruby_major_version}%g" \
-		-e "s%\@TCL_MAJOR_VERSION\@%${tcl_major_version}%g" \
+		-e "s%\@PERL_VERSION\@%5.30%g" \
+		-e "s%\@RUBY_MAJOR_VERSION\@%2.6%g" \
+		-e "s%\@TCL_MAJOR_VERSION\@%8.6.9%g" \
 		-e "s%\@PERL_PLATFORM\@%${TERMUX_ARCH}-android%g" \
 		-e "s%\@RUBY_PLATFORM\@%${TERMUX_HOST_PLATFORM}%g" \
 		-e "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
 		"$patch" | patch --silent -p1
+
+	echo "${TERMUX_PKG_EXTRA_CONFIGURE_ARGS}"
 }
 
 termux_step_post_make_install() {

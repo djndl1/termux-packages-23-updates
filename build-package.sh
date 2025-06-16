@@ -742,7 +742,7 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++)); do
 		termux_step_post_make_install
 		termux_step_install_pacman_hooks
 		termux_step_install_service_scripts
-		termux_step_install_license
+		#termux_step_install_license
 		cd "$TERMUX_PKG_MASSAGEDIR"
 		termux_step_copy_into_massagedir
 		cd "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX_CLASSICAL"
