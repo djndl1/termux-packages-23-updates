@@ -1,0 +1,32 @@
+diff --git a/src/misc.c b/src/misc.c
+index eb14f40..374b6fc 100644
+--- a/src/misc.c
++++ b/src/misc.c
+@@ -892,13 +892,11 @@ get_path_max (void)
+ }
+ #endif
+ 
+-#if !HAVE_MEMPCPY
+ void *
+ mempcpy (void *dest, const void *src, size_t n)
+ {
+   return (char *) memcpy (dest, src, n) + n;
+ }
+-#endif
+ 
+ #if !HAVE_STPCPY
+ char *
+diff --git a/src/mkcustom.h b/src/mkcustom.h
+index 035c50b..c22b216 100644
+--- a/src/mkcustom.h
++++ b/src/mkcustom.h
+@@ -56,9 +56,7 @@ int strcasecmp (const char *s1, const char *s2);
+ int strncasecmp (const char *s1, const char *s2, size_t n);
+ #endif
+ 
+-#if !HAVE_MEMPCPY
+ void *mempcpy (void *dest, const void *src, size_t n);
+-#endif
+ 
+ #if !HAVE_STPCPY
+ char *stpcpy (char *dest, const char *src);
