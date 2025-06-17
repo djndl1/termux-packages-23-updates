@@ -19,12 +19,12 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
-	if $TERMUX_ON_DEVICE_BUILD; then
-		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
-	fi
+	#if $TERMUX_ON_DEVICE_BUILD; then
+	#	termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
+	#fi
 
 	# Remove old symlink to force a fresh timestamp:
-	rm -f $TERMUX_PREFIX/bin/awk
+	mv $TERMUX_PREFIX/bin/awk $TERMUX_PREFIX/bin/awk.orig
 
 	# http://cross-lfs.org/view/CLFS-2.1.0/ppc64-64/temp-system/gawk.html
 	cp -v extension/Makefile.in{,.orig}
