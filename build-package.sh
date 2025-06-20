@@ -4,6 +4,9 @@
 # Setting the TMPDIR variable
 : "${TMPDIR:=/tmp}"
 export TMPDIR
+export TERMUX_PKG_QUICK_REBUILD=false
+export TERMUX_MAKE_PROCESSES=1
+export TERMUX_CMAKE_BUILD='Unix Makefiles'
 
 # Set the build-package.sh call depth
 # If its the root call, then create a file to store the list of packages and their dependencies
