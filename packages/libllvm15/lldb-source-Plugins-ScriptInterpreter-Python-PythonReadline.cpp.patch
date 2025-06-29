@@ -1,0 +1,17 @@
+diff --git a/lldb/source/Plugins/ScriptInterpreter/Python/PythonReadline.cpp b/lldb/source/Plugins/ScriptInterpreter/Python/PythonReadline.cpp
+index 2753847f3..ab5129e6f 100644
+--- a/lldb/source/Plugins/ScriptInterpreter/Python/PythonReadline.cpp
++++ b/lldb/source/Plugins/ScriptInterpreter/Python/PythonReadline.cpp
+@@ -34,9 +34,9 @@ static struct PyModuleDef readline_module = {
+     nullptr,               // m_free
+ };
+ 
+-static char *simple_readline(FILE *stdin, FILE *stdout, const char *prompt) {
+-  rl_instream = stdin;
+-  rl_outstream = stdout;
++static char *simple_readline(FILE *input, FILE *output, const char *prompt) {
++  rl_instream = input;
++  rl_outstream = output;
+   char *line = readline(prompt);
+   if (!line) {
+     char *ret = (char *)PyMem_RawMalloc(1);

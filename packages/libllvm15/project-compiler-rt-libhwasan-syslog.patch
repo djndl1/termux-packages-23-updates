@@ -1,0 +1,12 @@
+diff --git a/compiler-rt/lib/hwasan/CMakeLists.txt b/compiler-rt/lib/hwasan/CMakeLists.txt
+index 1f0aa0b..9b0ac89 100644
+--- a/compiler-rt/lib/hwasan/CMakeLists.txt
++++ b/compiler-rt/lib/hwasan/CMakeLists.txt
+@@ -72,6 +72,7 @@ if(ANDROID)
+   if (COMPILER_RT_HAS_Z_GLOBAL)
+     list(APPEND HWASAN_DYNAMIC_LINK_FLAGS -Wl,-z,global)
+   endif()
++  list(APPEND HWASAN_DYNAMIC_LINK_FLAGS -llog)
+ endif()
+ 
+ set(HWASAN_DYNAMIC_CFLAGS ${HWASAN_RTL_CFLAGS})
