@@ -1,0 +1,13 @@
+diff --git a/lld/ELF/InputFiles.cpp b/lld/ELF/InputFiles.cpp
+index 7dacdeb..ef33c9c 100644
+--- a/lld/ELF/InputFiles.cpp
++++ b/lld/ELF/InputFiles.cpp
+@@ -1443,7 +1443,7 @@ template <class ELFT> void SharedFile::parse() {
+     // symbol, that's a violation of the spec.
+     StringRef name = CHECK(sym.getName(stringTable), this);
+     if (sym.getBinding() == STB_LOCAL) {
+-      errorOrWarn(toString(this) + ": invalid local symbol '" + name +
++      warn(toString(this) + ": invalid local symbol '" + name +
+                   "' in global part of symbol table");
+       continue;
+     }
