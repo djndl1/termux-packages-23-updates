@@ -26,7 +26,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-tiff=no
 --with-xml2
 --with-xpm=no
---with-tree-sitter
+--with-tree-sitter=ifavailable
 --without-dbus
 --without-gconf
 --without-gsettings
@@ -87,9 +87,6 @@ TERMUX_PKG_RM_AFTER_INSTALL+=" bin/ctags share/man/man1/ctags.1 share/man/man1/c
 termux_step_post_get_source() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
-	if $TERMUX_ON_DEVICE_BUILD; then
-		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
-	fi
 
 	# Version guard
 	local ver_e=${TERMUX_PKG_VERSION#*:}
