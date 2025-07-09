@@ -1,0 +1,28 @@
+diff --git a/libiberty/fibheap.c b/libiberty/fibheap.c
+index e755911..891a76a 100644
+--- a/libiberty/fibheap.c
++++ b/libiberty/fibheap.c
+@@ -22,9 +22,7 @@ Boston, MA 02110-1301, USA.  */
+ #ifdef HAVE_CONFIG_H
+ #include "config.h"
+ #endif
+-#ifdef HAVE_LIMITS_H
+ #include <limits.h>
+-#endif
+ #ifdef HAVE_STDLIB_H
+ #include <stdlib.h>
+ #endif
+diff --git a/libiberty/filedescriptor.c b/libiberty/filedescriptor.c
+index d7b19f4..dbee8e6 100644
+--- a/libiberty/filedescriptor.c
++++ b/libiberty/filedescriptor.c
+@@ -23,9 +23,7 @@
+ #include "ansidecl.h"
+ #include "libiberty.h"
+ 
+-#ifdef HAVE_FCNTL_H
+ #include <fcntl.h>
+-#endif
+ 
+ #if defined (_WIN32)
+ #define WIN32_LEAN_AND_MEAN
