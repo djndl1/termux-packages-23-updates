@@ -1,0 +1,12 @@
+diff --git a/Makefile.flags b/Makefile.flags
+index 1cec5ba..2ad4f66 100644
+--- a/Makefile.flags
++++ b/Makefile.flags
+@@ -10,6 +10,7 @@ SKIP_STRIP ?= n
+ CPPFLAGS += $(call cc-option,-std=gnu99,)
+ 
+ CPPFLAGS += \
++	-I$(PREFIX)/include/aarch64-linux-android \
+ 	-Iinclude -Ilibbb \
+ 	$(if $(KBUILD_SRC),-Iinclude2 -I$(srctree)/include -I$(srctree)/libbb) \
+ 	-include include/autoconf.h \

@@ -14,20 +14,12 @@ TERMUX_PKG_SERVICE_SCRIPT=(
 	"busybox-httpd" "exec busybox httpd -f -p 0.0.0.0:8080 -h $TERMUX_PREFIX/srv/www/ 2>&1"
 )
 
-termux_step_pre_configure() {
-	# Certain packages are not safe to build on device because their
-	# build.sh script deletes specific files in $TERMUX_PREFIX.
-	if $TERMUX_ON_DEVICE_BUILD; then
-		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
-	fi
-}
-
 termux_step_configure() {
 	# Prevent spamming logs with useless warnings to make them more readable.
 	CFLAGS+=" -Wno-ignored-optimization-argument -Wno-unused-command-line-argument"
 
 	sed -e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
-		-e "s|@TERMUX_SYSROOT@|$TERMUX_STANDALONE_TOOLCHAIN/sysroot|g" \
+		-e "s|@TERMUX_SYSROOT@|$TERMUX_PREFIX|g" \
 		-e "s|@TERMUX_HOST_PLATFORM@|${TERMUX_HOST_PLATFORM}|g" \
 		-e "s|@TERMUX_CFLAGS@|$CFLAGS|g" \
 		-e "s|@TERMUX_LDFLAGS@|$LDFLAGS|g" \

@@ -17,14 +17,11 @@ TERMUX_PKG_REPLACES="openssl-tool (<< 1.1.1b-1), openssl-dev"
 termux_step_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
-	if $TERMUX_ON_DEVICE_BUILD; then
-		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
-	fi
 
 	CFLAGS+=" -DNO_SYSLOG"
+	LDFLAGS+=" -llog"
 
 	perl -p -i -e "s@TERMUX_CFLAGS@$CFLAGS@g" Configure
-	rm -Rf $TERMUX_PREFIX/lib/libcrypto.* $TERMUX_PREFIX/lib/libssl.*
 	test $TERMUX_ARCH = "arm" && TERMUX_OPENSSL_PLATFORM="android-arm"
 	test $TERMUX_ARCH = "aarch64" && TERMUX_OPENSSL_PLATFORM="android-arm64"
 	test $TERMUX_ARCH = "i686" && TERMUX_OPENSSL_PLATFORM="android-x86"
@@ -43,6 +40,7 @@ termux_step_configure() {
 
 termux_step_make() {
 	make depend
+	LDFLAGS+=' -llog'
 	make -j $TERMUX_PKG_MAKE_PROCESSES all
 }
 

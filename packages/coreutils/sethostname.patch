@@ -1,0 +1,22 @@
+diff --git a/src/hostname.c b/src/hostname.c
+index ae7b56a..d3c57ec 100644
+--- a/src/hostname.c
++++ b/src/hostname.c
+@@ -30,7 +30,7 @@
+ 
+ #define AUTHORS proper_name ("Jim Meyering")
+ 
+-#ifndef HAVE_SETHOSTNAME
++
+ # if defined HAVE_SYSINFO && defined HAVE_SYS_SYSTEMINFO_H
+ #  include <sys/systeminfo.h>
+ # endif
+@@ -46,7 +46,7 @@ sethostname (char const *name, size_t namelen)
+   return -1;
+ # endif
+ }
+-#endif
++
+ 
+ void
+ usage (int status)
