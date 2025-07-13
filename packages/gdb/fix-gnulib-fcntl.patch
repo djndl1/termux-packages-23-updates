@@ -1,0 +1,49 @@
+diff --git a/gnulib/import/mempcpy.c b/gnulib/import/mempcpy.c
+index 9aae418..c1487d3 100644
+--- a/gnulib/import/mempcpy.c
++++ b/gnulib/import/mempcpy.c
+@@ -20,8 +20,6 @@
+ #include <string.h>
+ 
+ /* A function definition is only needed if HAVE_MEMPCPY is not defined.  */
+-#if !HAVE_MEMPCPY
+-
+ /* Copy N bytes of SRC to DEST, return pointer to bytes after the
+    last written byte.  */
+ void *
+@@ -30,4 +28,3 @@ mempcpy (void *dest, const void *src, size_t n)
+   return (char *) memcpy (dest, src, n) + n;
+ }
+ 
+-#endif
+diff --git a/gnulib/import/string.in.h b/gnulib/import/string.in.h
+index 33160b2..66200b5 100644
+--- a/gnulib/import/string.in.h
++++ b/gnulib/import/string.in.h
+@@ -291,25 +291,7 @@ _GL_WARN_ON_USE (memmem, "memmem is unportable and often quadratic - "
+ 
+ /* Copy N bytes of SRC to DEST, return pointer to bytes after the
+    last written byte.  */
+-#if @GNULIB_MEMPCPY@
+-# if ! @HAVE_MEMPCPY@
+-_GL_FUNCDECL_SYS (mempcpy, void *,
+-                  (void *restrict __dest, void const *restrict __src,
+-                   size_t __n)
+-                  _GL_ARG_NONNULL ((1, 2)));
+-# endif
+-_GL_CXXALIAS_SYS (mempcpy, void *,
+-                  (void *restrict __dest, void const *restrict __src,
+-                   size_t __n));
+-_GL_CXXALIASWARN (mempcpy);
+-#elif defined GNULIB_POSIXCHECK
+-# undef mempcpy
+-# if HAVE_RAW_DECL_MEMPCPY
+-_GL_WARN_ON_USE (mempcpy, "mempcpy is unportable - "
+-                 "use gnulib module mempcpy for portability");
+-# endif
+-#endif
+-
++void *memcpy (void *, const void *, size_t);
+ /* Search backwards through a block for a byte (specified as an int).  */
+ #if @GNULIB_MEMRCHR@
+ # if ! @HAVE_DECL_MEMRCHR@

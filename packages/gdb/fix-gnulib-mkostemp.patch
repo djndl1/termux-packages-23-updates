@@ -1,0 +1,12 @@
+diff --git a/gnulib/configure b/gnulib/configure
+index cc7e828..3f9d4c9 100755
+--- a/gnulib/configure
++++ b/gnulib/configure
+@@ -30846,6 +30846,7 @@ $as_echo "#define GNULIB_TEST_MKDTEMP 1" >>confdefs.h
+   if test $ac_cv_func_mkostemp != yes; then
+     HAVE_MKOSTEMP=0
+   fi
++HAVE_MKOSTEMP=0
+ 
+ 
+      if test $HAVE_MKOSTEMP = 0; then

@@ -1,0 +1,20 @@
+diff --git a/gnulib/configure b/gnulib/configure
+index d2c2c6c..e971963 100755
+--- a/gnulib/configure
++++ b/gnulib/configure
+@@ -30499,6 +30499,7 @@ done
+   if test $ac_cv_func_mempcpy = no; then
+     HAVE_MEMPCPY=0
+   fi
++  HAVE_MEMPCPY=0
+ 
+ 
+      if test $HAVE_MEMPCPY = 0; then
+@@ -35568,6 +35569,7 @@ $as_echo "#define GNULIB_TEST_WMEMCHR 1" >>confdefs.h
+   if test $ac_cv_func_wmempcpy = no; then
+     HAVE_WMEMPCPY=0
+   fi
++  HAVE_WMEMPCPY=0
+ 
+ 
+      if test $HAVE_WMEMPCPY = 0; then
