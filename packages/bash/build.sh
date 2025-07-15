@@ -35,6 +35,8 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" bash_cv_getcwd_malloc=yes"
 TERMUX_PKG_CONFFILES="etc/bash.bashrc etc/profile"
 
 TERMUX_PKG_RM_AFTER_INSTALL="share/man/man1/bashbug.1 bin/bashbug"
+export CC=clang-10
+export CXX=clang++-10
 
 termux_step_pre_configure() {
 	declare -A PATCH_CHECKSUMS

@@ -14,6 +14,9 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-curses --enable-multibyte bash_cv_wcwidt
 TERMUX_PKG_EXTRA_MAKE_ARGS="SHLIB_LIBS=-lncursesw"
 TERMUX_PKG_CONFFILES="etc/inputrc"
 
+export CC=clang-10
+export CXX=clang++-10
+
 termux_step_pre_configure() {
 	declare -A PATCH_CHECKSUMS
 
