@@ -9,5 +9,6 @@ TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
+	LDFLAGS+=' -llog'
 	CFLAGS+=" $LDFLAGS"
 }
