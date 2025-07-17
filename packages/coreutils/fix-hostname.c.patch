@@ -1,0 +1,13 @@
+diff --git a/src/hostname.c b/src/hostname.c
+index d3c57ec..c86345b 100644
+--- a/src/hostname.c
++++ b/src/hostname.c
+@@ -35,7 +35,7 @@
+ #  include <sys/systeminfo.h>
+ # endif
+ 
+-static int
++int
+ sethostname (char const *name, size_t namelen)
+ {
+ # if defined HAVE_SYSINFO && defined HAVE_SYS_SYSTEMINFO_H
