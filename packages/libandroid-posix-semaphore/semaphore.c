@@ -1,5 +1,5 @@
-/* This file is a port of posix named semaphore for Termux Android, 
-   based on musl-libc which is licensed under the standard MIT license. 
+/* This file is a port of posix named semaphore for Termux Android,
+   based on musl-libc which is licensed under the standard MIT license.
    The ported files are listed as following.
 
    File(s): src/thread/sem_open.c
@@ -86,7 +86,7 @@ static char *__sem_mapname(const char *name, char *buf)
     return buf;
 }
 
-sem_t *sem_open(const char *name, int flags, ...)
+sem_t *libandroid_sem_open(const char *name, int flags, ...)
 {
     va_list ap;
     mode_t mode;
@@ -125,14 +125,14 @@ sem_t *sem_open(const char *name, int flags, ...)
     /* Dummy pointer to make a reservation */
     semtab[slot].sem = (sem_t *)-1;
     UNLOCK(lock);
-    
+
     /* Only O_CREAT and O_EXCL are useful */
     flags &= (O_CREAT|O_EXCL);
 
     /* Get a file descriptor. */
     switch (flags) {
     case 0:
-        /* There is no flag specified in oflag. Just open the existing semaphore.  
+        /* There is no flag specified in oflag. Just open the existing semaphore.
          * If a semaphore with the given name doesn't exist, return an error. */
         {
             if ((fd = open(name, FLAGS)) < 0) {
@@ -141,7 +141,7 @@ sem_t *sem_open(const char *name, int flags, ...)
         }
         break;
     case O_CREAT:
-        /* If only O_CREAT is specified in oflag, then the semaphore is 
+        /* If only O_CREAT is specified in oflag, then the semaphore is
          * created if it does not already exist. If a semaphore with the
          * given name already exists, then mode and value are ignored. */
         {
@@ -183,7 +183,7 @@ sem_t *sem_open(const char *name, int flags, ...)
         errno = EINVAL;
         goto fail;
     }
-    
+
     /* Do fstat and mmap. */
     if (fstat(fd, &st) < 0 || (map = mmap(0, sizeof(sem_t), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED) {
         close(fd);
@@ -219,7 +219,7 @@ fail:
     return SEM_FAILED;
 }
 
-int sem_close(sem_t *sem)
+int libandroid_sem_close(sem_t *sem)
 {
     if (sem == NULL || semtab == NULL) {
         errno = EINVAL;
@@ -244,7 +244,7 @@ int sem_close(sem_t *sem)
     return 0;
 }
 
-int sem_unlink(const char *name)
+int libandroid_sem_unlink(const char *name)
 {
     char buf[NAME_MAX+strlen(SEM_PREFIX)+1];
     if (!(name = __sem_mapname(name, buf))) return -1;
