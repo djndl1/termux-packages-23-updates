@@ -18,7 +18,7 @@ termux_step_pre_configure() {
 
 	CPPFLAGS+=" -DHAVE_BACKTRACE"
 	CFLAGS+=" $CPPFLAGS"
-	LDFLAGS+=" -landroid-execinfo -landroid-glob"
+	LDFLAGS+=" -landroid-execinfo -landroid-glob -llog"
 }
 
 termux_step_post_make_install() {
