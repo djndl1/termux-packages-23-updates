@@ -1,0 +1,17 @@
+diff --git a/configure b/configure
+index 30164e5..88b0dcd 100755
+--- a/configure
++++ b/configure
+@@ -8538,12 +8538,6 @@ if test "x$ac_cv_func_getspnam" = xyes
+ then :
+   printf "%s\n" "#define HAVE_GETSPNAM 1" >>confdefs.h
+ 
+-fi
+-ac_fn_c_check_func "$LINENO" "getusershell" "ac_cv_func_getusershell"
+-if test "x$ac_cv_func_getusershell" = xyes
+-then :
+-  printf "%s\n" "#define HAVE_GETUSERSHELL 1" >>confdefs.h
+-
+ fi
+ ac_fn_c_check_func "$LINENO" "putenv" "ac_cv_func_putenv"
+ if test "x$ac_cv_func_putenv" = xyes
