@@ -11,7 +11,6 @@ TERMUX_PKG_REPLACES="chroot, busybox (<< 1.30.1-4)"
 TERMUX_PKG_ESSENTIAL=true
 # On device build is unsupported as it removes utility 'ln' (and maybe
 # something else) in the installation process.
-TERMUX_PKG_ON_DEVICE_BUILD_NOT_SUPPORTED=true
 
 # pinky has no usage on Android.
 # df does not work either, let system binary prevail.
