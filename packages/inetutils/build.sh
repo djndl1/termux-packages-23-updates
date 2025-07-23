@@ -8,7 +8,7 @@ TERMUX_PKG_SHA256=68bedbfeaf73f7d86be2a7d99bcfbd4093d829f52770893919ae174c0b2357
 TERMUX_PKG_DEPENDS="readline"
 TERMUX_PKG_BUILD_DEPENDS="libandroid-glob"
 TERMUX_PKG_SUGGESTS="whois"
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_HOSTBUILD=false
 TERMUX_PKG_RM_AFTER_INSTALL="bin/whois share/man/man1/whois.1"
 # These are old cruft / not suited for android
 # (we --disable-traceroute as it requires root
@@ -27,6 +27,10 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-uucpd
 ac_cv_lib_crypt_crypt=no
 gl_cv_have_weak=no
+ac_cv_header_glob_h=no
+ac_cv_func_nl_langinfo=yes
+ac_cv_func_pututline=no
+ac_cv_func_getutline=no
 "
 
 termux_step_host_build() {
