@@ -34,3 +34,7 @@ termux_step_pre_configure() {
 		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --disable-year2038"
 	fi
 }
+
+termux_step_make() {
+	make LDFLAGS=" -lselinux -landroid-selinux ${LDFLAGS}" -j ${TERMUX_PKG_MAKE_PROCESSES}
+}
