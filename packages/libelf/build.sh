@@ -7,7 +7,7 @@ TERMUX_PKG_SRCURL="https://sourceware.org/elfutils/ftp/${TERMUX_PKG_VERSION}/elf
 TERMUX_PKG_SHA256=616099beae24aba11f9b63d86ca6cc8d566d968b802391334c91df54eab416b4
 # libandroid-support for langinfo.
 TERMUX_PKG_DEPENDS="libandroid-support, zlib, zstd, json-c"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_c99=yes --disable-symbol-versioning"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_c99=yes --disable-symbol-versioning ac_cv_header_error_h=yes"
 TERMUX_PKG_CONFLICTS="libelf-dev"
 TERMUX_PKG_REPLACES="libelf-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
@@ -17,7 +17,7 @@ termux_step_pre_configure() {
 	CFLAGS+=" -Wno-error=unused-value -Wno-error=format-nonliteral -Wno-error -Wno-error=unused-function"
 
 	# Exposes ACCESSPERMS in <sys/stat.h> which elfutils uses
-	CFLAGS+=" -D__USE_BSD"
+	CFLAGS+=" -D__USE_BSD -D__ANDROID_API__=23"
 
 	CFLAGS+=" -DFNM_EXTMATCH=0"
 
@@ -31,5 +31,6 @@ termux_step_pre_configure() {
 	cp $TERMUX_PKG_BUILDER_DIR/aligned_alloc.c libelf
 	cp -r $TERMUX_PKG_BUILDER_DIR/search src/
 
+	export CC=clang-10 CXX=clang++-10
 	autoreconf -ivf
 }
