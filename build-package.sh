@@ -704,7 +704,7 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++)); do
 		fi
 
 		if [ "$TERMUX_CONTINUE_BUILD" == "false" ]; then
-			#termux_step_get_dependencies
+			termux_step_get_dependencies
 			if [ "$TERMUX_PACKAGE_LIBRARY" = "glibc" ]; then
 				termux_step_setup_cgct_environment
 			fi
