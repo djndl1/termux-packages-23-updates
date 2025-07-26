@@ -1,0 +1,48 @@
+diff --git a/cpan/CPAN/lib/CPAN/FirstTime.pm b/cpan/CPAN/lib/CPAN/FirstTime.pm
+index 8934f4a..81a1c43 100644
+--- a/cpan/CPAN/lib/CPAN/FirstTime.pm
++++ b/cpan/CPAN/lib/CPAN/FirstTime.pm
+@@ -1110,7 +1110,7 @@ sub init {
+         # as long as Windows needs $self->_build_command, we cannot
+         # support sudo on windows :-)
+         my $default = $CPAN::Config->{make} || "";
+-        if ( $default && $CPAN::Config->{install_help} eq 'sudo' ) {
++        if (0 && $default && $CPAN::Config->{install_help} eq 'sudo' ) {
+             if ( find_exe('sudo') ) {
+                 $default = "sudo $default";
+                 delete $CPAN::Config->{make_install_make_command}
+diff --git a/dist/PathTools/lib/File/Spec/Unix.pm b/dist/PathTools/lib/File/Spec/Unix.pm
+index 2d5af10..27c0058 100644
+--- a/dist/PathTools/lib/File/Spec/Unix.pm
++++ b/dist/PathTools/lib/File/Spec/Unix.pm
+@@ -196,7 +196,7 @@ sub _tmpdir {
+ sub tmpdir {
+     my $cached = $_[0]->_cached_tmpdir('TMPDIR');
+     return $cached if defined $cached;
+-    $_[0]->_cache_tmpdir($_[0]->_tmpdir( $ENV{TMPDIR}, "/tmp" ), 'TMPDIR');
++    $_[0]->_cache_tmpdir($_[0]->_tmpdir( $ENV{TMPDIR}, "/data/data/com.termux/files/usr/tmp" ), 'TMPDIR');
+ }
+ 
+ =item updir
+diff --git a/perlio.c b/perlio.c
+index 3f148d2..4672d41 100644
+--- a/perlio.c
++++ b/perlio.c
+@@ -5041,7 +5041,7 @@ PerlIO_tmpfile_flags(int imode)
+           f = PerlIO_fdopen(fd, "w+b");
+ #elif ! defined(OS2)
+      int fd = -1;
+-     char tempname[] = "/tmp/PerlIO_XXXXXX";
++     char tempname[] = "/data/data/com.termux/files/usr/tmp/PerlIO_XXXXXX";
+      const char * const tmpdir = TAINTING_get ? NULL : PerlEnv_getenv("TMPDIR");
+      SV * sv = NULL;
+      int old_umask = umask(0177);
+@@ -5061,7 +5061,7 @@ PerlIO_tmpfile_flags(int imode)
+      if (fd < 0) {
+          /* Try cwd */
+          sv = newSVpvs(".");
+-         sv_catpv(sv, tempname + 4);
++         sv_catpv(sv, tempname + sizeof("/data/data/com.termux/files/usr/tmp") - 1);
+          fd = Perl_my_mkostemp_cloexec(SvPVX(sv), imode | O_VMS_DELETEONCLOSE);
+      }
+      umask(old_umask);
