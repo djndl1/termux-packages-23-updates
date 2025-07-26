@@ -11,6 +11,12 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --without-python3
 "
 
+
+termux_step_make() {
+	CFLAGS+=' -D__ANDROID_API__=23 '
+
+	make CFLAGS="${CFLAGS}" -j $TERMUX_PKG_MAKE_PROCESSES
+}
 termux_step_pre_configure() {
 	./autogen.sh
 }
