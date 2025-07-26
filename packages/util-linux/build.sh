@@ -64,4 +64,10 @@ termux_step_pre_configure() {
 	elif [ $TERMUX_ARCH_BITS = 32 ]; then
 		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --disable-year2038"
 	fi
+
+	export GTKDOCIZE=echo
+	autoreconf -fi
+
+	export CFLAGS+=' -D__ANDROID_API__=23'
+	export CXXFLAGS+=' -D__ANDROID_API__=23'
 }
