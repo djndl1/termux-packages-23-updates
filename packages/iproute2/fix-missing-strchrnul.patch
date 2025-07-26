@@ -1,0 +1,17 @@
+diff --git a/lib/color.c b/lib/color.c
+index 7e905b4..57da6d1 100644
+--- a/lib/color.c
++++ b/lib/color.c
+@@ -13,6 +13,12 @@
+ 
+ static void set_color_palette(void);
+ 
++char *strchrnul(const char *s, int c){
++	char *p = strchr(s,c);
++
++	return p != NULL ? p : strchr(s, '\0');
++}
++
+ enum color {
+ 	C_RED,
+ 	C_GREEN,
