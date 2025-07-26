@@ -264,7 +264,7 @@ termux_step_massage() {
 		echo "INFO: Done ... $((t1-t0))s"
 		echo "INFO: Total OpenMP symbols $(echo ${LIBOMP_SYMBOLS} | wc -w)"
 
-		local nproc=$(nproc)
+		local nproc=1
 		echo "INFO: Identifying files with nproc=${nproc}"
 		local t0=$(get_epoch)
 		local files; files="$(IFS=; find . -type f -print0 | \

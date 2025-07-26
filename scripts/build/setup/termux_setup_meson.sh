@@ -3,6 +3,10 @@ termux_setup_meson() {
 	local MESON_VERSION=1.7.2
 	local MESON_FOLDER
 
+		if [ ! -d "${TERMUX_SCRIPTDIR}/build-tools" ]; then
+			mkdir -p "${TERMUX_SCRIPTDIR}/build-tools"
+		fi
+
 	if [ "${TERMUX_PACKAGES_OFFLINE-false}" = "true" ]; then
 		MESON_FOLDER=${TERMUX_SCRIPTDIR}/build-tools/meson-${MESON_VERSION}
 	else

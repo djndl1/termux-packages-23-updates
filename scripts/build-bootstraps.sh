@@ -13,7 +13,7 @@ version=0.1.0
 set -e
 
 export TERMUX_SCRIPTDIR=$(realpath "$(dirname "$(realpath "$0")")/../")
-: "${TERMUX_TOPDIR:="$HOME/.termux-build"}"
+: "${TERMUX_TOPDIR:="$HOME/.termux-build2"}"
 . "${TERMUX_SCRIPTDIR}"/scripts/properties.sh
 . "${TERMUX_SCRIPTDIR}"/scripts/build/termux_step_handle_buildarch.sh
 
