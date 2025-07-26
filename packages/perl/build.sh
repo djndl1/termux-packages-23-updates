@@ -34,13 +34,6 @@ termux_step_make() {
 }
 
 termux_step_post_make_install() {
-	cd $TERMUX_PREFIX/share/man/man1
-	rm perlbug.1
-	ln -s perlthanks.1 perlbug.1
-	cd $TERMUX_PREFIX/bin
-	rm perlbug
-	ln -s perlthanks perlbug
-
 	cd $TERMUX_PREFIX/lib
 	ln -f -s perl5/${TERMUX_PKG_VERSION}/${TERMUX_ARCH}-android/CORE/libperl.so libperl.so
 
