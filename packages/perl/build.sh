@@ -20,6 +20,8 @@ termux_step_configure() {
 		CFLAGS+=" -D__USE_GNU"
 		LDFLAGS=" -Wl,-rpath=$TERMUX_PREFIX/lib -L$TERMUX_PREFIX/lib -landroid-utimes -lm" $TERMUX_PKG_SRCDIR/Configure \
 			-des \
+			-Duserelocatableinc=no \
+			-Duseshrplib \
 			-Alibpth="/system/lib /vendor/lib" \
 			-Dsysroot=$TERMUX_PREFIX \
 			-Dprefix=$TERMUX_PREFIX \
@@ -39,4 +41,5 @@ termux_step_post_make_install() {
 
 	cd $TERMUX_PREFIX/include
 	ln -f -s ../lib/perl5/${TERMUX_PKG_VERSION}/${TERMUX_ARCH}-android/CORE perl
+	ln -f -s ../lib/perl5/${TERMUX_PKG_VERSION}/${TERMUX_ARCH}-android ../lib/perl5/${TERMUX_PKG_VERSION}/${TERMUX_ARCH}-android
 }
