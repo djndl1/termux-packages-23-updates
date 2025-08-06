@@ -17,20 +17,27 @@ TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_configure() {
 		cd $TERMUX_PKG_BUILDDIR
-		CFLAGS+=" -D__USE_GNU"
-		LDFLAGS=" -Wl,-rpath=$TERMUX_PREFIX/lib -L$TERMUX_PREFIX/lib -landroid-utimes -lm" $TERMUX_PKG_SRCDIR/Configure \
+		CFLAGS+=" -D__USE_GNU" LDFLAGS=" -Wl,-rpath=$TERMUX_PREFIX/lib -L$TERMUX_PREFIX/lib -landroid-utimes -lm -L/system/lib64" $TERMUX_PKG_SRCDIR/Configure \
 			-des \
 			-Duserelocatableinc=no \
 			-Duseshrplib \
-			-Alibpth="/system/lib /vendor/lib" \
+			-Dusedl \
+			-Alibpth="/system/lib64/ /vendor/lib" \
 			-Dsysroot=$TERMUX_PREFIX \
 			-Dprefix=$TERMUX_PREFIX \
-			-Dld="$CC -Wl,-rpath=$TERMUX_PREFIX/lib -Wl,--enable-new-dtags" \
+			-Dusethreads \
+			-Dld="cc -Wl,-rpath=$TERMUX_PREFIX/lib -Wl,--enable-new-dtags -L/system/lib64/" \
+			-Dcc="cc -L/system/lib64/" \
 			-Doptimize="-O2"
 }
 
 termux_step_make() {
+	echo '#undef __USE_GNU' >> $TERMUX_PKG_SRCDIR/config.h
 	echo '#define __USE_GNU' >> $TERMUX_PKG_SRCDIR/config.h
+	echo '#undef HAS_NL_LANGINFO' >> $TERMUX_PKG_SRCDIR/config.h
+	echo '#define HAS_NL_LANGINFO' >> $TERMUX_PKG_SRCDIR/config.h
+	echo '#undef I_FCNTL' >> $TERMUX_PKG_SRCDIR/config.h
+	echo '#define I_FCNTL' >> $TERMUX_PKG_SRCDIR/config.h
 	export CFLAGS
 	make CFLAGS="${CFLAGS}" -j $TERMUX_PKG_MAKE_PROCESSES
 }
@@ -42,4 +49,6 @@ termux_step_post_make_install() {
 	cd $TERMUX_PREFIX/include
 	ln -f -s ../lib/perl5/${TERMUX_PKG_VERSION}/${TERMUX_ARCH}-android/CORE perl
 	ln -f -s ../lib/perl5/${TERMUX_PKG_VERSION}/${TERMUX_ARCH}-android ../lib/perl5/${TERMUX_PKG_VERSION}/${TERMUX_ARCH}-android
+	cd $TERMUX_PREFIX/bin
+	ln -sf perl${TERMUX_PKG_VERSION} perl
 }
