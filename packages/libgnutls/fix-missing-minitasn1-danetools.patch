@@ -1,0 +1,20 @@
+diff --git a/src/Makefile.am b/src/Makefile.am
+index e9c39f7..5f0f550 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -175,6 +175,7 @@ danetool_LDADD += libcmd-danetool.la ../gl/libgnu.la gl/libgnu_gpl.la
+ if ENABLE_DANE
+ danetool_LDADD += ../libdane/libgnutls-dane.la
+ endif
++danetool_LDADD += $(COMMON_LIBS)
+ 
+ noinst_LTLIBRARIES += libcmd-danetool.la
+ libcmd_danetool_la_SOURCES = danetool-options.c danetool-options.h
+@@ -234,6 +235,7 @@ noinst_PROGRAMS += dumpcfg
+ dumpcfg_SOURCES = cfg.c cfg.h
+ dumpcfg_CFLAGS = -DTEST=1
+ dumpcfg_LDADD = ../gl/libgnu.la gl/libgnu_gpl.la
++dumpcfg_LDADD += $(COMMON_LIBS)
+ 
+ SUFFIXES = .stamp .json
+ 

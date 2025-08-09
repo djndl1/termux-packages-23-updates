@@ -1,0 +1,12 @@
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 79f5639..71a820e 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -159,6 +159,7 @@ endif
+ certtool_SOURCES = certtool.c certtool-common.c certtool-extras.c common.c
+ certtool_LDADD = ../lib/libgnutls.la 
+ certtool_LDADD += libcmd-certtool.la ../gl/libgnu.la gl/libgnu_gpl.la
++certtool_LDADD += $(COMMON_LIBS)
+ 
+ noinst_LTLIBRARIES += libcmd-certtool.la
+ libcmd_certtool_la_SOURCES = certtool-options.c certtool-options.h

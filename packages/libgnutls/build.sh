@@ -43,4 +43,6 @@ termux_step_post_get_source() {
 
 termux_step_pre_configure() {
 	CFLAGS+=" -DNO_INLINE_GETPASS=1"
+	export GTKDOCIZE=echo
+	autoreconf -fi
 }
