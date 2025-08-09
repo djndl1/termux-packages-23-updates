@@ -15,6 +15,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-docs
 --with-default-fonts=/system/fonts
 --with-add-fonts=$TERMUX_PREFIX/share/fonts
+ac_cv_func_mkostemp=no
 "
 
 termux_step_pre_configure() {
