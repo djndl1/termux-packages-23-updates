@@ -73,6 +73,7 @@ termux_setup_toolchain_23c() {
 	# Basic hardening.
 	CFLAGS+=" -fstack-protector-strong"
 	LDFLAGS+=" -Wl,-z,relro,-z,now"
+	LDFLAGS+=" -llog"
 
 	if [ "$TERMUX_DEBUG_BUILD" = "true" ]; then
 		CFLAGS+=" -g3 -O1"
