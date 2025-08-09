@@ -100,13 +100,14 @@ termux_step_pre_configure() {
 	patch="$TERMUX_PKG_BUILDER_DIR/configure-perl-ruby-tcl-cross-compiling.diff"
 	echo "Applying patch: $(basename "$patch")"
 	test -f "$patch" && sed \
-		-e "s%\@PERL_VERSION\@%5.30%g" \
+		-e "s%\@PERL_VERSION\@%5.38.4%g" \
 		-e "s%\@RUBY_MAJOR_VERSION\@%2.6%g" \
-		-e "s%\@TCL_MAJOR_VERSION\@%8.6.9%g" \
+		-e "s%\@TCL_MAJOR_VERSION\@%8.6.14%g" \
 		-e "s%\@PERL_PLATFORM\@%${TERMUX_ARCH}-android%g" \
 		-e "s%\@RUBY_PLATFORM\@%${TERMUX_HOST_PLATFORM}%g" \
 		-e "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
 		"$patch" | patch --silent -p1
+	LDFLAGS+=' -L${TERMUX_PREFIX}/include/perl'
 
 	echo "${TERMUX_PKG_EXTRA_CONFIGURE_ARGS}"
 }
