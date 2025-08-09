@@ -6,7 +6,7 @@ TERMUX_PKG_VERSION=0.5.12
 TERMUX_PKG_SRCURL=http://gondor.apana.org.au/~herbert/dash/files/dash-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=6a474ac46e8b0b32916c4c60df694c82058d3297d8b385b74508030ca4a8f28a
 TERMUX_PKG_ESSENTIAL=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-static"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-static ac_cv_func_mempcpy=no ac_cv_func_wait3=yes"
 
 termux_step_post_make_install() {
 	# Symlink sh -> dash
