@@ -21,6 +21,8 @@ termux_step_post_get_source() {
 }
 
 termux_step_make() {
+	CFLAGS+=' -D__ANDROID_API__=23'
+	export CFLAGS
 	make -C libselinux -f Makefile-android
 }
 
