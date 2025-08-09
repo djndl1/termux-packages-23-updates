@@ -1,0 +1,25 @@
+diff --git a/lldb/source/Utility/CMakeLists.txt b/lldb/source/Utility/CMakeLists.txt
+index e9954d6..942a89a 100644
+--- a/lldb/source/Utility/CMakeLists.txt
++++ b/lldb/source/Utility/CMakeLists.txt
+@@ -13,7 +13,7 @@ if(NOT PURE_WINDOWS)
+   list(APPEND LLDB_SYSTEM_LIBS ${CMAKE_THREAD_LIBS_INIT})
+ endif()
+ 
+-list(APPEND LLDB_SYSTEM_LIBS ${CMAKE_DL_LIBS})
++list(APPEND LLDB_SYSTEM_LIBS ${CMAKE_DL_LIBS} log)
+ 
+ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
+   list(APPEND LLDB_SYSTEM_LIBS ws2_32 rpcrt4)
+diff --git a/lldb/tools/lldb-server/CMakeLists.txt b/lldb/tools/lldb-server/CMakeLists.txt
+index 9030ed7..41d3620 100644
+--- a/lldb/tools/lldb-server/CMakeLists.txt
++++ b/lldb/tools/lldb-server/CMakeLists.txt
+@@ -55,6 +55,7 @@ add_lldb_tool(lldb-server
+       lldbPluginInstructionMIPS64
+       lldbPluginInstructionRISCV
+       ${LLDB_SYSTEM_LIBS}
++      log
+ 
+     LINK_COMPONENTS
+       Option
