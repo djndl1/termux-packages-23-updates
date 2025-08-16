@@ -10,6 +10,9 @@ termux_step_massage() {
 		ADDING_PREFIX="glibc/"
 	fi
 
+	rm -rf var/{cache,lib,log}/{apt,dpkg}
+	rm -rf var/run
+
 	# Remove lib/charset.alias which is installed by gettext-using packages:
 	rm -f lib/charset.alias
 
@@ -18,6 +21,7 @@ termux_step_massage() {
 
 	# Remove cache file created by glib-compile-schemas:
 	rm -f share/glib-2.0/schemas/gschemas.compiled
+	rm -rf lib/python*/__pycache__
 
 	# Remove cache file generated when using glib-cross-bin:
 	rm -rf opt/glib/cross/share/glib-2.0/codegen/__pycache__
@@ -138,7 +142,7 @@ termux_step_massage() {
 			local _link_value
 			_link_value=$(readlink $file)
 			rm $file
-			ln -s $_link_value.gz $file.gz
+			ln -sf $_link_value.gz $file.gz
 		done < <(find ./${ADDING_PREFIX}share/man -type l ! -iname \*.gz -print0)
 	fi
 
@@ -264,7 +268,7 @@ termux_step_massage() {
 		echo "INFO: Done ... $((t1-t0))s"
 		echo "INFO: Total OpenMP symbols $(echo ${LIBOMP_SYMBOLS} | wc -w)"
 
-		local nproc=1
+		local nproc=4
 		echo "INFO: Identifying files with nproc=${nproc}"
 		local t0=$(get_epoch)
 		local files; files="$(IFS=; find . -type f -print0 | \
